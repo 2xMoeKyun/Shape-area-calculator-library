@@ -25,12 +25,14 @@ namespace ShapeArea
 
             shapes.Add(new CreateShape("Triangle", 0, 3, geronFormul, isDefault: true));
             shapes[1].SetSides(3, 4, 5);
+            shapes.Add(new CreateShape("Triangle2", 0, 3, geronFormul, isDefault: true));
+            shapes[2].SetSides(3, 4, 4);
 
             bool exit = false;
             while (!exit)
             {
                 Console.WriteLine("\nВыберите действие\n1 - посмотреть существующие фигуры" +
-                    "\n2 - Создать свою фигуру\n3 - Посчитать площадь фигуры, 4 - выход\n");
+                    "\n2 - Создать свою фигуру\n3 - Посчитать площадь фигуры\n4 - выход\n");
                 string input = Console.ReadLine();
                 switch (input)
                 {
@@ -46,6 +48,9 @@ namespace ShapeArea
                     case "4":
                         exit = true;
                         break;
+                    default:
+                        Console.WriteLine("Не верная команда");
+                        break;
                 }
             }
         }
@@ -54,7 +59,16 @@ namespace ShapeArea
         {
             Console.WriteLine("Выберите номер фигуры");
             ShowShapes();
-            int index = int.Parse(Console.ReadLine());
+            int index = 0;
+            while (true)
+            {
+                index = int.Parse(Console.ReadLine());
+                if(index < shapes.Count)
+                {
+                    break;
+                }
+                Console.WriteLine("Такой фигуры не существует");
+            }
             CalculateShape ch = new(shapes[index]);
             float s = ch.Calculate();
         }
